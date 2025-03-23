@@ -16,8 +16,8 @@
     <p-slider
       formControlName="priceRange"
       [range]="true"
-      [min]="0"
-      [max]="10000"
+      [min]="minPrice()"
+      [max]="maxPrice()"
       [step]="1"
       styleClass="w-full"
     ></p-slider>
@@ -32,12 +32,13 @@
     <label class="font-bold text-sm">Stops</label>
     <div *ngFor="let stop of stopsOptions" class="flex items-center">
       <p-checkbox
-        [inputId]="stop.value"
-        name="group"
+        [inputId]="stop.value.toString()"
         [value]="stop.value"
         formControlName="stops"
-      />
-      <label [for]="stop.value" class="ml-2 text-sm"> {{ stop.label }} </label>
+      ></p-checkbox>
+      <label [for]="stop.value" class="ml-2 text-sm">
+        {{ stop.label }}
+      </label>
     </div>
   </div>
 </form>

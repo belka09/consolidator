@@ -58,14 +58,14 @@
   <div class="flex flex-col gap-6 text-center border-l border-[#E2E0E3] p-6">
     <div>
       <div class="text-lg font-semibold">
-        {{ flight()?.price | priceFormat }}
+        {{ flight()?.price | currency }}
       </div>
       <div class="text-xs text-gray-500">Per adult</div>
     </div>
     <button
       pButton
       label="Book"
-      class="w-full !bg-[#0A1D3D] !text-white !border-transparent !rounded-lg min-w-[162px]"
+      class="w-full min-w-[162px] !rounded-lg !bg-[#0A1D3D] !text-white !border-transparent hover:!bg-[#0B0A0D] transition-colors duration-300"
     ></button>
   </div>
 </div>

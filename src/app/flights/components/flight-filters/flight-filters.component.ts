@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  input,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
@@ -14,7 +21,7 @@ interface SortOption {
 
 interface StopOption {
   label: string;
-  value: string;
+  value: number;
 }
 
 @Component({
@@ -32,6 +39,11 @@ interface StopOption {
   styleUrls: ['./flight-filters.component.scss'],
 })
 export class FlightFiltersComponent implements OnInit {
+  minPrice = input<number>(0);
+  maxPrice = input<number>(10000);
+
+  @Output() filtersChange = new EventEmitter<any>();
+
   flightFilterForm!: FormGroup;
 
   sortOptions: SortOption[] = [
@@ -41,13 +53,11 @@ export class FlightFiltersComponent implements OnInit {
     { label: 'Departure time (Latest)', value: 'departureDesc' },
   ];
 
-  initialPriceRange = [3386.81, 4440.81];
-
   stopsOptions: StopOption[] = [
-    { label: 'All stops', value: 'allStops' },
-    { label: 'Nonstop', value: 'nonstop' },
-    { label: '1 stop', value: '1stop' },
-    { label: '2 stops', value: '2stops' },
+    { label: 'All stops', value: -1 },
+    { label: 'Nonstop', value: 0 },
+    { label: '1 stop', value: 1 },
+    { label: '2 stops', value: 2 },
   ];
 
   constructor(private fb: FormBuilder) {}
@@ -55,16 +65,12 @@ export class FlightFiltersComponent implements OnInit {
   ngOnInit(): void {
     this.flightFilterForm = this.fb.group({
       sortBy: ['priceAsc'],
-      priceRange: [this.initialPriceRange],
-      stops: [['allStops']],
+      priceRange: [[this.minPrice(), this.maxPrice()]],
+      stops: [[-1]],
     });
 
     this.flightFilterForm.valueChanges.subscribe((value) => {
-      console.log('Filter form changed:', value);
+      this.filtersChange.emit(value);
     });
-  }
-
-  onSubmit() {
-    console.log('Final form values:', this.flightFilterForm.value);
   }
 }
