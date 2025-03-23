@@ -2,13 +2,22 @@
   <h2 class="text-xl font-semibold mb-4">Price summary</h2>
   <div class="border border-[#E2E0E3] rounded-lg p-4 bg-white mt-3">
     <div class="flex justify-between text-gray-600 mb-4">
-      <span>✈️ Flight</span>
-      <span>{{ price() | currency }}</span>
+      <div class="flex gap-2">
+        <img src="assets/icons/Plane.svg" alt="icon" />
+        <span class="text-sm text=[#0A1D3D]">Flight</span>
+      </div>
+      <span class="text-sm text=[#0A1D3D]">{{ price() | currency }}</span>
     </div>
     <div class="border-t border-gray-300 my-2"></div>
-    <div class="flex justify-between font-bold text-xl">
-      <span>Total</span>
-      <span>{{ price() | currency }}</span>
+    <div class="flex justify-between items-baseline">
+      <span class="text-sm text-[#0A1D3D]">Total</span>
+      <span class="text-[32px] text-[#0A1D3D] leading-none flex items-baseline">
+        ${{ priceInteger() }}
+        <small
+          class="text-sm text-[#0A1D3D] text-primary align-top leading-none"
+          >.{{ priceFraction() }}</small
+        >
+      </span>
     </div>
   </div>
 </section>
