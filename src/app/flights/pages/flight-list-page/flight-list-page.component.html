@@ -1,1 +1,24 @@
-<p>flight-list-page works!</p>
+<div class="flight-list-container">
+  <div class="flight-list-layout">
+    <aside class="filters-section">
+      <app-flight-filters></app-flight-filters>
+    </aside>
+
+    <section class="results-section">
+      <div class="flight-cards">
+        @for(item of flights.slice(0,4); track item) {
+        <app-flight-card [flight]="item"></app-flight-card>
+        }
+      </div>
+
+      <div class="show-more-wrapper">
+        <button
+          pButton
+          label="Show more"
+          class="w-full !bg-white !text-[#0A1D3D] !border-[#E2E0E3] !rounded-lg"
+          (click)="onShowMore()"
+        ></button>
+      </div>
+    </section>
+  </div>
+</div>

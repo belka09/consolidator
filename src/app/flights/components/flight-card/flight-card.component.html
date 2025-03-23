@@ -1,1 +1,71 @@
-<p>flight-card works!</p>
+<div class="bg-white rounded-lg shadow flex items-stretch justify-between">
+  <div class="flex flex-col gap-8 p-6">
+    @for(item of flight()?.flights; track item) {
+    <div class="flex gap-3">
+      <img
+        [src]="getLogoUrl(item.airline)"
+        alt="Airline Logo"
+        class="w-10 h-auto"
+      />
+
+      <div
+        class="grid gap-x-9"
+        style="
+          grid-template-columns: minmax(80px, auto) minmax(80px, auto) minmax(
+              80px,
+              auto
+            );
+        "
+      >
+        <div class="flex flex-col">
+          <span class="text-sm text-[#0A1D3D]">
+            {{ item.departure_time | timeFormat }}
+          </span>
+          <span class="text-sm text-[#898390]">
+            {{ item.departure_airport }}
+            {{ item.departure_date | shortDateFormat }}
+          </span>
+        </div>
+
+        <div class="flex flex-col">
+          <span class="text-sm text-[#0A1D3D]">
+            {{ item.arrival_time | timeFormat }}
+          </span>
+          <span class="text-sm text-[#898390]">
+            {{ item.arrival_airport }} {{ item.arrival_date | shortDateFormat }}
+          </span>
+        </div>
+
+        <div class="flex flex-col">
+          <span class="text-sm text-[#0A1D3D]">
+            {{ item.duration_minutes | durationFormat }}
+          </span>
+          <span class="text-sm text-[#898390]">
+            {{
+              item.stops === 0
+                ? "Nonstop"
+                : item.stops === 1
+                ? "1 stop"
+                : item.stops + " stops"
+            }}
+          </span>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-6 text-center border-l border-[#E2E0E3] p-6">
+    <div>
+      <div class="text-lg font-semibold">
+        {{ flight()?.price | priceFormat }}
+      </div>
+      <div class="text-xs text-gray-500">Per adult</div>
+    </div>
+    <button
+      pButton
+      label="Book"
+      class="w-full !bg-[#0A1D3D] !text-white !border-transparent !rounded-lg min-w-[162px]"
+    ></button>
+  </div>
+</div>
