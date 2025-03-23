@@ -6,6 +6,7 @@ import { TimeFormatPipe } from '../../../shared/pipes/time-format.pipe';
 import { ShortDateFormatPipe } from '../../../shared/pipes/short-date.pipe';
 import { DurationFormatPipe } from '../../../shared/pipes/duration.pipe';
 import { ButtonModule } from 'primeng/button';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-flight-card',
@@ -15,6 +16,7 @@ import { ButtonModule } from 'primeng/button';
     ShortDateFormatPipe,
     DurationFormatPipe,
     ButtonModule,
+    RouterModule,
   ],
   templateUrl: './flight-card.component.html',
   styleUrl: './flight-card.component.scss',

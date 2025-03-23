@@ -1,1 +1,141 @@
-<p>traveler-page works!</p>
+<div class="min-h-screen py-8">
+  <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="md:col-span-2">
+      <h2 class="text-xl font-semibold mb-4">Travelers</h2>
+
+      <form [formGroup]="travelerForm" class="space-y-4">
+        <div
+          class="border rounded-lg p-4 bg-white border-[#E2E0E3] flex flex-col gap-4"
+        >
+          <h3 class="text-md text-[#0A1D3D] font-semibold">
+            Traveler 1: Adult
+          </h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="text-sm block mb-1 text-[#898390]"
+                >First name</label
+              >
+              <input
+                pInputText
+                class="w-full"
+                formControlName="firstName"
+                [ngClass]="{ 'p-invalid': isInvalid('firstName') }"
+                placeholder="First name"
+              />
+            </div>
+
+            <div>
+              <label class="text-sm block mb-1 text-[#898390]">Last name</label>
+              <input
+                pInputText
+                class="w-full"
+                formControlName="lastName"
+                [ngClass]="{ 'p-invalid': isInvalid('lastName') }"
+                placeholder="Last name"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label class="text-sm block mb-2 text-[#898390]">Gender</label>
+            <div class="flex items-center gap-4">
+              <div class="flex items-end">
+                <p-radioButton
+                  name="gender"
+                  inputId="male"
+                  value="Male"
+                  formControlName="gender"
+                />
+                <label for="male" class="ml-2 text-sm text-[#0A1D3D]"
+                  >Male</label
+                >
+              </div>
+              <div class="flex items-end">
+                <p-radioButton
+                  name="gender"
+                  inputId="female"
+                  value="Female"
+                  formControlName="gender"
+                />
+                <label for="female" class="ml-2 text-sm text-[#0A1D3D]"
+                  >Female</label
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label class="text-sm block mb-1 text-[#898390]"
+                >Month of birth</label
+              >
+              <p-dropdown
+                [options]="months"
+                optionLabel="label"
+                optionValue="value"
+                formControlName="birthMonth"
+                class="w-full"
+                placeholder="Select Month"
+                [ngClass]="{ 'p-invalid': isInvalid('birthMonth') }"
+              ></p-dropdown>
+            </div>
+
+            <div>
+              <label class="text-sm block mb-1 text-[#898390]"
+                >Day of birth</label
+              >
+              <p-dropdown
+                [options]="days"
+                formControlName="birthDay"
+                class="w-full"
+                placeholder="Select Day"
+                [ngClass]="{ 'p-invalid': isInvalid('birthDay') }"
+              ></p-dropdown>
+            </div>
+
+            <div>
+              <label class="text-sm block mb-1 text-[#898390]"
+                >Year of birth</label
+              >
+              <p-dropdown
+                [options]="years"
+                formControlName="birthYear"
+                class="w-full"
+                placeholder="Select Year"
+                [ngClass]="{ 'p-invalid': isInvalid('birthYear') }"
+              ></p-dropdown>
+            </div>
+          </div>
+
+          <div>
+            <label class="text-sm block mb-1 text-[#898390]">Citizenship</label>
+            <p-dropdown
+              [options]="citizenships"
+              formControlName="citizenship"
+              class="w-full"
+              placeholder="Select Citizenship"
+              [ngClass]="{ 'p-invalid': isInvalid('citizenship') }"
+            ></p-dropdown>
+          </div>
+        </div>
+      </form>
+
+      <div class="flex justify-between mt-6">
+        <button
+          pButton
+          label="Back"
+          class="!bg-white !text-gray-700 !border-gray-300 !px-6 !py-3 !rounded-lg"
+          [routerLink]="['/']"
+        ></button>
+        <button
+          pButton
+          label="Confirm"
+          (click)="onSubmit()"
+          class="!bg-[#0A1D3D] !text-white !border-transparent hover:!bg-[#0B0A0D] transition-colors duration-300 !px-6 !py-3 !rounded-lg"
+        ></button>
+      </div>
+    </div>
+    <app-summary [price]="price"></app-summary>
+  </div>
+</div>

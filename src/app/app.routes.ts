@@ -14,7 +14,7 @@ export const routes: Routes = [
       ).then((m) => m.FlightListPageComponent),
   },
   {
-    path: 'traveler',
+    path: 'book/:id',
     loadComponent: () =>
       import('./travelers/pages/traveler-page/traveler-page.component').then(
         (m) => m.TravelerPageComponent
