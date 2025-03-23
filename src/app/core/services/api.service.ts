@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FlightOffer } from '../../shared/models/flight-offer.interface';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  private readonly flightsUrl =
-    'https://public-front-bucket.s3.eu-central-1.amazonaws.com/test/test_flights.json';
-  private readonly airlineLogoCdn = 'https://d263qmvlt29h99.cloudfront.net';
+  private readonly flightsUrl = environment.flightsUrl;
+  private readonly airlineLogoCdn = environment.airlineLogoCdn;
 
   constructor(private http: HttpClient) {}
 

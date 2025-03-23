@@ -1,32 +1,37 @@
-<div class="flight-list-container">
-  <div class="flight-list-layout">
-    <aside class="filters-section">
-      @if(dataLoaded) {
-      <app-flight-filters
-        [minPrice]="minPrice"
-        [maxPrice]="maxPrice"
-        (filtersChange)="onFiltersChange($event)"
-      ></app-flight-filters>
+<section class="flex gap-6">
+  <aside
+    class="flex flex-col p-4 bg-white h-fit rounded-xl min-w-[240px] !border-[#E2E0E3]"
+  >
+    @if(dataLoaded) {
+    <app-flight-filters
+      [minPrice]="minPrice"
+      [maxPrice]="maxPrice"
+      (filtersChange)="onFiltersChange($event)"
+    ></app-flight-filters>
+    }
+  </aside>
+
+  <main class="flex flex-col flex-auto">
+    <div class="flex flex-col gap-4">
+      @if(filteredFlights.length === 0 && dataLoaded) {
+      <div class="text-center text-[#898390] py-12">
+        No flights found for the selected filters.
+      </div>
+      } @else { @for(item of filteredFlights.slice(0, visibleCount); track item)
+      {
+      <app-flight-card [flight]="item"></app-flight-card>
+      } }
+    </div>
+
+    <div class="flex justify-center mt-6">
+      @if(!allFlightsShown && filteredFlights.length > 0) {
+      <button
+        pButton
+        label="Show more"
+        class="w-full !bg-white !text-[#0A1D3D] !border-[#E2E0E3] !rounded-lg"
+        (click)="onShowMore()"
+      ></button>
       }
-    </aside>
-
-    <section class="results-section">
-      <div class="flight-cards">
-        @for(item of filteredFlights.slice(0, visibleCount); track item) {
-        <app-flight-card [flight]="item"></app-flight-card>
-        }
-      </div>
-
-      <div class="show-more-wrapper">
-        @if(!allFlightsShown) {
-        <button
-          pButton
-          label="Show more"
-          class="w-full !bg-white !text-[#0A1D3D] !border-[#E2E0E3] !rounded-lg"
-          (click)="onShowMore()"
-        ></button>
-        }
-      </div>
-    </section>
-  </div>
-</div>
+    </div>
+  </main>
+</section>
