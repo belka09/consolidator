@@ -12,8 +12,10 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ButtonModule } from 'primeng/button';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+
 import { StorageService } from '../../../core/services/storage.service';
 import { SummaryComponent } from '../../components/summary/summary.component';
+import { FlightDataService } from '../../../core/services/data.service';
 
 @Component({
   selector: 'app-traveler-page',
@@ -34,8 +36,7 @@ import { SummaryComponent } from '../../components/summary/summary.component';
 export class TravelerPageComponent implements OnInit {
   flightId: string = '';
   travelerForm!: FormGroup;
-
-  price = 4440.81;
+  price: number = 0;
 
   months = [
     { label: '01 – January', value: '01' },
@@ -62,16 +63,25 @@ export class TravelerPageComponent implements OnInit {
     return { label: `${year}`, value: `${year}` };
   });
 
-  citizenships = [{ label: 'United States', value: 'US' }];
+  citizenship = [{ label: 'United States', value: 'US' }];
 
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private flightDataService: FlightDataService
   ) {}
 
   ngOnInit(): void {
     this.flightId = this.route.snapshot.paramMap.get('id') ?? 'unknown';
+
+    const flight = this.flightDataService
+      .getAllFlights()
+      .find((f) => f.id.toString() === this.flightId);
+
+    if (flight) {
+      this.price = flight.price;
+    }
 
     this.travelerForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -89,24 +99,22 @@ export class TravelerPageComponent implements OnInit {
     }
   }
 
-  onSubmit(): void {
+  public onSubmit(): void {
     if (this.travelerForm.valid) {
       const formData = this.travelerForm.value;
       this.storageService.save(formData);
 
       alert(
-        `Traveler data:\n${JSON.stringify(
-          formData,
-          null,
-          2
-        )}\nFlight ID: 123456`
+        `Traveler data:\n${JSON.stringify(formData, null, 2)}\nFlight ID: ${
+          this.flightId
+        }`
       );
     } else {
       this.travelerForm.markAllAsTouched();
     }
   }
 
-  isInvalid(controlName: string): boolean {
+  public isInvalid(controlName: string): boolean {
     const control = this.travelerForm.get(controlName);
     return !!(control && control.invalid && control.touched);
   }

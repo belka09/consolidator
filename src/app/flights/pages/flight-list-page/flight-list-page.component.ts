@@ -1,12 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Subscription } from 'rxjs';
-
 import { ButtonModule } from 'primeng/button';
-import { ApiService } from '../../../core/services/api.service';
+
 import { FlightFiltersComponent } from '../../components/flight-filters/flight-filters.component';
 import { FlightCardComponent } from '../../components/flight-card/flight-card.component';
 import { FlightOffer } from '../../../shared/models/flight-offer.interface';
+import { FlightDataService } from '../../../core/services/data.service';
 
 @Component({
   selector: 'app-flight-list-page',
@@ -20,9 +19,7 @@ import { FlightOffer } from '../../../shared/models/flight-offer.interface';
   templateUrl: './flight-list-page.component.html',
   styleUrls: ['./flight-list-page.component.scss'],
 })
-export class FlightListPageComponent implements OnInit, OnDestroy {
-  private flightsSub?: Subscription;
-
+export class FlightListPageComponent implements OnInit {
   allFlights: FlightOffer[] = [];
   filteredFlights: FlightOffer[] = [];
 
@@ -32,25 +29,18 @@ export class FlightListPageComponent implements OnInit, OnDestroy {
   visibleCount = 5;
   dataLoaded = false;
 
-  constructor(private apiService: ApiService) {}
+  constructor(private flightDataService: FlightDataService) {}
 
   ngOnInit() {
-    this.flightsSub = this.apiService.getFlights().subscribe((data) => {
-      this.allFlights = data;
-      this.filteredFlights = data;
-      console.log('Loaded flights:', data);
+    this.allFlights = this.flightDataService.getAllFlights();
+    this.filteredFlights = [...this.allFlights];
 
-      if (data.length > 0) {
-        this.minPrice = Math.min(...data.map((f) => f.price));
-        this.maxPrice = Math.max(...data.map((f) => f.price));
-      }
+    if (this.allFlights.length > 0) {
+      this.minPrice = Math.min(...this.allFlights.map((f) => f.price));
+      this.maxPrice = Math.max(...this.allFlights.map((f) => f.price));
+    }
 
-      this.dataLoaded = true;
-    });
-  }
-
-  ngOnDestroy() {
-    this.flightsSub?.unsubscribe();
+    this.dataLoaded = true;
   }
 
   get allFlightsShown(): boolean {
