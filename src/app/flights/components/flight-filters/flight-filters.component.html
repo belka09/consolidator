@@ -1,0 +1,43 @@
+<form [formGroup]="flightFilterForm" class="flex flex-col gap-6">
+  <div class="form-field">
+    <label class="font-bold text-sm">Sort by</label>
+    <p-dropdown
+      formControlName="sortBy"
+      [options]="sortOptions"
+      optionLabel="label"
+      optionValue="value"
+      placeholder="Select sort"
+      styleClass="w-full"
+    ></p-dropdown>
+  </div>
+
+  <div class="form-field">
+    <label class="font-bold text-sm">Price</label>
+    <p-slider
+      formControlName="priceRange"
+      [range]="true"
+      [min]="0"
+      [max]="10000"
+      [step]="1"
+      styleClass="w-full"
+    ></p-slider>
+
+    <div class="price-display">
+      {{ flightFilterForm.value.priceRange[0] | currency }} -
+      {{ flightFilterForm.value.priceRange[1] | currency }}
+    </div>
+  </div>
+
+  <div class="form-field">
+    <label class="font-bold text-sm">Stops</label>
+    <div *ngFor="let stop of stopsOptions" class="flex items-center">
+      <p-checkbox
+        [inputId]="stop.value"
+        name="group"
+        [value]="stop.value"
+        formControlName="stops"
+      />
+      <label [for]="stop.value" class="ml-2 text-sm"> {{ stop.label }} </label>
+    </div>
+  </div>
+</form>
