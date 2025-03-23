@@ -10,8 +10,8 @@ import { routes } from './app.routes';
 import { HttpClientModule } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeng/themes/aura';
 import { provideFlightDataInitializer } from './core/providers/flight-data.provider';
+import { Preset } from './presets';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,7 +22,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
-        preset: Aura,
+        preset: Preset,
       },
     }),
     provideFlightDataInitializer(),

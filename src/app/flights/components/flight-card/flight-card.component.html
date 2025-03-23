@@ -11,8 +11,8 @@
       <div
         class="grid gap-x-9"
         style="
-          grid-template-columns: minmax(80px, auto) minmax(80px, auto) minmax(
-              80px,
+          grid-template-columns: minmax(100px, auto) minmax(100px, auto) minmax(
+              100px,
               auto
             );
         "
@@ -21,8 +21,9 @@
           <span class="text-sm text-[#0A1D3D]">
             {{ item.departure_time | timeFormat }}
           </span>
-          <span class="text-sm text-[#898390]">
+          <span class="text-sm text-[#898390] inline-flex items-center gap-1">
             {{ item.departure_airport }}
+            <span class="w-1 h-1 bg-[#E2E0E3] rounded-full"></span>
             {{ item.departure_date | shortDateFormat }}
           </span>
         </div>
@@ -31,8 +32,10 @@
           <span class="text-sm text-[#0A1D3D]">
             {{ item.arrival_time | timeFormat }}
           </span>
-          <span class="text-sm text-[#898390]">
-            {{ item.arrival_airport }} {{ item.arrival_date | shortDateFormat }}
+          <span class="text-sm text-[#898390] inline-flex items-center gap-1">
+            {{ item.arrival_airport }}
+            <span class="w-1 h-1 bg-[#E2E0E3] rounded-full"></span>
+            {{ item.arrival_date | shortDateFormat }}
           </span>
         </div>
 

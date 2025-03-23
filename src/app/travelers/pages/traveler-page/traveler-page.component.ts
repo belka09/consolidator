@@ -63,7 +63,11 @@ export class TravelerPageComponent implements OnInit {
     return { label: `${year}`, value: `${year}` };
   });
 
-  citizenship = [{ label: 'United States', value: 'US' }];
+  citizenship = [
+    { label: 'United States', value: 'US' },
+    { label: 'Belarus', value: 'BY' },
+    { label: 'Polish', value: 'PL' },
+  ];
 
   constructor(
     private route: ActivatedRoute,
